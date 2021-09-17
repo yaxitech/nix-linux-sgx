@@ -97,6 +97,7 @@ in
         users.users.${cfgAesmd.user} = {
           description = "Intel Architectural Enclave Service Manager ";
           isSystemUser = true;
+          group = cfgAesmd.group;
           extraGroups = [
             cfgAesmd.provision.group
           ];
