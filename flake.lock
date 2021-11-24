@@ -2,11 +2,11 @@
   "nodes": {
     "nixpkgs": {
       "locked": {
-        "lastModified": 1631785487,
-        "narHash": "sha256-VSKEvOtaY/roDxEHFxXh6GguOqqWCJZ3E06fBdKu8+I=",
+        "lastModified": 1637595801,
+        "narHash": "sha256-LkIMwVFKCuEqidaUdg8uxwpESAXjsPo4oCz3eJ7RaRw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "79c444b5bdeaba142d128afddee14c89ecf2a968",
+        "rev": "263ef4cc4146c9fab808085487438c625d4426a9",
         "type": "github"
       },
       "original": {
@@ -15,9 +15,26 @@
         "type": "indirect"
       }
     },
+    "nixpkgs-sgx": {
+      "locked": {
+        "lastModified": 1638040560,
+        "narHash": "sha256-olPdbb6e4sm1x6DUS5jJaOX1XONsMmpfTf9k0o8QnjM=",
+        "owner": "veehaitch",
+        "repo": "nixpkgs",
+        "rev": "0257e8cb019deb8b70f5a07833c8a1cea84fa03c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "veehaitch",
+        "ref": "sgx-psw",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-sgx": "nixpkgs-sgx"
       }
     }
   },
