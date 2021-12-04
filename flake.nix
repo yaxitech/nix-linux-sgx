@@ -1,20 +1,30 @@
 {
   description = "YAXI Linux SGX packages and modules";
 
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/master";
-  inputs.nixpkgs-sgx-psw.url = "github:veehaitch/nixpkgs/sgx-psw";
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/master";
+    nixpkgs-sgx-psw.url = "github:veehaitch/nixpkgs/sgx-psw";
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 
-  outputs = { self, nixpkgs, nixpkgs-sgx-psw }:
+  outputs = { self, nixpkgs, nixpkgs-sgx-psw, rust-overlay }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [ self.overlay ];
+        overlays = [
+          self.overlay
+          rust-overlay.overlay
+        ];
       };
     in
     {
       overlay = final: prev: rec {
         sgx-psw = prev.callPackage "${nixpkgs-sgx-psw}/pkgs/os-specific/linux/sgx/psw" { };
+        sgxs-tools = final.callPackage ./pkgs/sgxs-tools { };
         # Keep for compat
         intel-sgx.sdk = final.sgx-sdk;
         intel-sgx.psw = sgx-psw;
@@ -23,6 +33,7 @@
       packages.${system} = {
         intel-sgx-sdk = pkgs.intel-sgx.sdk;
         intel-sgx-psw = pkgs.intel-sgx.psw;
+        inherit (pkgs) sgxs-tools;
       };
 
       nixosModules.sgx = {
