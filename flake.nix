@@ -1,10 +1,10 @@
 {
   description = "YAXI Linux SGX packages and modules";
 
-  inputs.nixpkgs.url = "nixpkgs/nixos-unstable";
-  inputs.nixpkgs-sgx.url = "github:veehaitch/nixpkgs/sgx-psw";
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/master";
+  inputs.nixpkgs-sgx-psw.url = "github:veehaitch/nixpkgs/sgx-psw";
 
-  outputs = { self, nixpkgs, nixpkgs-sgx }:
+  outputs = { self, nixpkgs, nixpkgs-sgx-psw }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -14,10 +14,9 @@
     in
     {
       overlay = final: prev: rec {
-        sgx-sdk = prev.callPackage "${nixpkgs-sgx}/pkgs/os-specific/linux/sgx/sdk" { };
-        sgx-psw = prev.callPackage "${nixpkgs-sgx}/pkgs/os-specific/linux/sgx/psw" { };
+        sgx-psw = prev.callPackage "${nixpkgs-sgx-psw}/pkgs/os-specific/linux/sgx/psw" { };
         # Keep for compat
-        intel-sgx.sdk = sgx-sdk;
+        intel-sgx.sdk = final.sgx-sdk;
         intel-sgx.psw = sgx-psw;
       };
 
@@ -28,7 +27,7 @@
 
       nixosModules.sgx = {
         nixpkgs.overlays = [ self.overlay ];
-        imports = [ "${nixpkgs-sgx}/nixos/modules/security/sgx.nix" ];
+        imports = [ "${nixpkgs-sgx-psw}/nixos/modules/services/security/aesmd.nix" ];
       };
 
       checks.${system}.nixpkgs-fmt = pkgs.runCommand "check-nix-format" { } ''

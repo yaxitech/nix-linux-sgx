@@ -2,26 +2,27 @@
   "nodes": {
     "nixpkgs": {
       "locked": {
-        "lastModified": 1637595801,
-        "narHash": "sha256-LkIMwVFKCuEqidaUdg8uxwpESAXjsPo4oCz3eJ7RaRw=",
-        "owner": "NixOS",
+        "lastModified": 1638652329,
+        "narHash": "sha256-qUCxzbR6dRbD+tVF/Nv8N9k+xoYmrVzArYw67MZx7MM=",
+        "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "263ef4cc4146c9fab808085487438c625d4426a9",
+        "rev": "493d66a22509a17d81feb11318581f0e63450583",
         "type": "github"
       },
       "original": {
-        "id": "nixpkgs",
-        "ref": "nixos-unstable",
-        "type": "indirect"
+        "owner": "nixos",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
-    "nixpkgs-sgx": {
+    "nixpkgs-sgx-psw": {
       "locked": {
-        "lastModified": 1638040560,
-        "narHash": "sha256-olPdbb6e4sm1x6DUS5jJaOX1XONsMmpfTf9k0o8QnjM=",
+        "lastModified": 1638645207,
+        "narHash": "sha256-FoKTXkUBDy8cMA48L3KF1G4QGjIH3/VYE/sejsvTsSY=",
         "owner": "veehaitch",
         "repo": "nixpkgs",
-        "rev": "0257e8cb019deb8b70f5a07833c8a1cea84fa03c",
+        "rev": "82f1b3f37792e643d12ebaf6bde63bb5d6fb569c",
         "type": "github"
       },
       "original": {
@@ -34,7 +35,7 @@
     "root": {
       "inputs": {
         "nixpkgs": "nixpkgs",
-        "nixpkgs-sgx": "nixpkgs-sgx"
+        "nixpkgs-sgx-psw": "nixpkgs-sgx-psw"
       }
     }
   },
