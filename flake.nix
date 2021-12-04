@@ -36,6 +36,9 @@
         inherit (pkgs) sgxs-tools;
       };
 
+      # By default, create a derivation from all output packages
+      defaultPackage.${system} = pkgs.linkFarmFromDrvs "bundle" (builtins.attrValues self.packages.${system});
+
       nixosModules.sgx = {
         nixpkgs.overlays = [ self.overlay ];
         imports = [ "${nixpkgs-sgx-psw}/nixos/modules/services/security/aesmd.nix" ];
