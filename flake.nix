@@ -52,29 +52,24 @@
       devShell.${system} = pkgs.mkShell {
         name = "linux-sgx-devshell";
 
-        buildInputs = with pkgs; [
-          intel-sgx.sdk
-          intel-sgx.psw
+        nativeBuildInputs = with pkgs; [
           fish
+          sgx-psw
+          sgx-sdk
+          sgxs-tools
         ];
 
-        SGX_SDK = "${pkgs.intel-sgx.sdk}";
         SGX_PSW = "${pkgs.intel-sgx.psw}";
 
+        LD_LIBRARY_PATH = with pkgs; lib.makeLibraryPath [
+          sgx-psw
+          sgx-sdk
+        ];
+
         shellHook = ''
-          source $SGX_SDK/share/bin/environment
-
-          export SGX_SDK_SAMPLES=$(mktemp -d)
-          cp --no-preserve=all -r $SGX_SDK/share/SampleCode $SGX_SDK_SAMPLES/
-
           echo "SGX_SDK         = $SGX_SDK"
-          echo "SGX_SDK_SAMPLES = $SGX_SDK_SAMPLES (rw)"
           echo "SGX_PSW         = $SGX_PSW"
           echo "LD_LIBRARY_PATH = $LD_LIBRARY_PATH"
-
-          trap "rm -rf $SGX_SDK_SAMPLES && echo 'Cleaned up samples dir'" EXIT
-
-          exec fish
         '';
       };
     };
