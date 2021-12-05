@@ -11,19 +11,14 @@ jobs:
     name: 'Check and build'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.3.4
-      - uses: cachix/install-nix-action@v13
+      - uses: actions/checkout@v2
+      - uses: cachix/install-nix-action@v16
         with:
-          install_url: https://nixos-nix-install-tests.cachix.org/serve/i6laym9jw3wg9mw6ncyrk6gjx4l34vvx/install
-          install_options: '--tarball-url-prefix https://nixos-nix-install-tests.cachix.org/serve'
           extra_nix_config: |
-            experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: 'Check flake evaluates'
         run: nix flake check --no-build .
+      - name: 'Build all packages'
+        run: nix build -L .
       - name: 'Run checks'
         run: nix flake check -L .
-      - name: 'Build linux-sgx SDK'
-        run: nix build -L .#intel-sgx-sdk
-      - name: 'Build linux-sgx PSW'
-        run: nix build -L .#intel-sgx-psw
