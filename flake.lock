@@ -18,11 +18,11 @@
     },
     "nixpkgs-sgx-psw": {
       "locked": {
-        "lastModified": 1638645207,
-        "narHash": "sha256-FoKTXkUBDy8cMA48L3KF1G4QGjIH3/VYE/sejsvTsSY=",
+        "lastModified": 1638702384,
+        "narHash": "sha256-HlUnSsWgI3zrgOzRZ/d/FPI+8wppX+aKBwUpY71WMXU=",
         "owner": "veehaitch",
         "repo": "nixpkgs",
-        "rev": "82f1b3f37792e643d12ebaf6bde63bb5d6fb569c",
+        "rev": "91de9dfa5ba81135af7c732d685bd5c256da6384",
         "type": "github"
       },
       "original": {
